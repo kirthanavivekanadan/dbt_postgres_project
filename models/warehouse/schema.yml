@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Dimension table for customers"
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+
+  - name: dim_products
+    description: "Dimension table for products"
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+
+  - name: fct_transactions
+    description: "Fact table for transactions"
+    columns:
+      - name: transaction_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests:
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+              severity: warn
+      - name: product_id
+        tests:
+          - relationships:
+              to: ref('dim_products')
+              field: product_id
+              severity: warn

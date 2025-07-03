@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: customer_segments
+    description: "Customer segments based on spend, frequency and diversity"
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: spending_segment
+        tests:
+          - not_null
+      - name: frequency_segment
+        tests:
+          - not_null
+      - name: diversity_segment
+        tests:
+          - not_null
+  - name: monthly_revenue_by_segment           
+    description: "Revenue aggregated by spending segment and month."
+    columns:
+      - name: month
+        tests: [not_null]
+      - name: spending_segment
+        tests:
+          - not_null
+          - accepted_values: {values: ['High', 'Medium', 'Low']}
+      - name: monthly_revenue
+        tests: [not_null]
+  - name: avg_purchase_value_by_segment        
+    description: "Average order value (AOV) per spending segment."
+    columns:
+      - name: spending_segment
+        tests:
+          - not_null
+          - accepted_values: {values: ['High', 'Medium', 'Low']}
+      - name: avg_purchase_value
+        tests:
+          - not_null
+  - name: top_categories_by_segment            
+    description: >
+      Top three product categories for each spending segment,
+      ranked by total quantity purchased.
+    columns:
+      - name: spending_segment
+        tests:
+          - not_null
+          - accepted_values: {values: ['High', 'Medium', 'Low']}
+      - name: category
+        tests: [not_null]
+      - name: total_quantity
+        tests: [not_null]
+      - name: rank
+        tests:
+          - not_null
+          - accepted_values: {values: [1, 2, 3]}

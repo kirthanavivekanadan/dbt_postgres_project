@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Cleaned staging table for customers"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: email
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_products
+    description: "Cleaned staging table for products"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_transactions
+    description: "Cleaned staging table for transactions"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: id
+              severity: warn
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_products')
+              field: id
