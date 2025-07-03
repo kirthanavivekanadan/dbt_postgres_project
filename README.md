@@ -10,7 +10,7 @@ This project aims to segment customers based on their purchasing behavior and de
 - Spending patterns
 - Product preferences
 - Monthly revenue contributions
-- Lifetime value
+- Top performing categories
 
 ---
 
